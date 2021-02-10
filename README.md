@@ -1,13 +1,10 @@
 # DRAFTER High-level technical overview
 
-> note: I will omit authentification, authorization, and caching in this doc.
-> I will also assume, that so far we are not going to make multi-language contracts to simplify the initial architectural plan.
-
 ## Technologies
 
 For **Backend**, I suggest using NodeJS, because:
 
-1. It works well with JSON
+1. It works very well with JSON
 2. All codebase will be in the same language
 3. Has good integration with Mongo
 
@@ -15,13 +12,11 @@ However, there are risks from a performance and security point of view, which ca
 
 For **Frontend**, I would go with React.
 
-These are rather suggestions, perhaps requires further discussions. However, the technology choose doesn't directly affect high-level architecture.
-
 > These are just suggestions, perhaps requires further disscussions. However, technology choose doesn't directly affect high-level architecture.
 
 ## High-level entities
 
-The general idea to achieve the ability to generate documents based on the preconfigured flexible template is to **get everything needed** for the final document:
+The general idea to achieve the ability to generate documents based on the preconfigured flexible template is to **all entities needed** for the final document:
 
 1. _Document Template_
 2. _Questionnaire Results_
@@ -46,17 +41,22 @@ From a technical point of view, we are going to need the following services:
 
 ## Data model
 
-Most of the data are going to be JSON-documents.
+Most of the data are going to be JSON-documents. Please see entities description to get known the details.
 
 #### Document Template
 
 Text flexibility is a must for such a service. The fewer limits we would have in this point, the more kinds of contracts can be provided to the customer.
 
-That's why I suggest using flexible template language like **Handlebars JS**. The disadvantage of such an approach is the requirement for template editors to briefly understand JS.
+That's why I suggest using flexible template language like **Handlebars JS**.
+
+> The disadvantage of such an approach is the requirement for template editors to briefly understand JS.
+
+This template will be processed with _Questionnaire Results_ coming from the customer.
 
 #### Questionnaire Config
 
-It is probably going to be a key entity of the system. The model of this entity affects many services. The general idea of this model is keeping collection of Data Input Components with their config.
+It is probably going to be a key entity of the system. The model of this entity affects many services.
+The general idea of this model is keeping collection of _Data Input Components_ with their config.
 
 It can be represented as the following JSON object:
 
