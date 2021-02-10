@@ -38,8 +38,8 @@ From a technical point of view, we are going to need the following services:
 3. _Processing Unit_ - generates _Document_ based on _Questionnaire Results_ into _Document Template_
 4. _Exporting Unit_ - generates _Document File_ based on a _Document_
 5. _CRUD API_ - basically allows to read/write **entities** to the database.
-6. _Auth Gateway_ - trades credentials to JWT token
-7. _Identity Provider_ - trades token to user profile. Provides with profile editing, password change and reset.
+6. _Identity Provider_ - trades credentials to JWT token
+7. _Profile Service_ - trades token to user profile. Provides with profile editing, password change and reset.
 8. _Mongo DB_ - document-oriented database should perfectly suit the document-oriented platform.
 
 ![High-level services](highlevel-architecture.svg)
