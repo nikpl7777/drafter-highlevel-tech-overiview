@@ -66,15 +66,32 @@ It can be represented as the following JSON object:
     ...
   },
   questionnaire: [{
+    id: "EmployeeAge",
+    editorComponent: "number",
+    edtiorConfig: {
+      validation: {
+        min: 7,
+        max: 120,
+        required: true
+      }
+    },
+  }, {
+    id: "EmployeeGender",
+    editorComponent: "radio",
+    edtiorConfig: {
+      validation: {
+        required: true
+      },
+      options: ["MALE", "FEMALE"]
+    },
+  }, {
     id: "YearsInArmy",
     editorComponent: "dateRange",
     edtiorConfig: {
       maxRange: 10
     },
     rules: [{
-      action: "hide",
-      target: "self",
-      condition: "EmployeeAge < 18"
+      condition: "EmployeeAge < 18 && EmployeeGender == 'MALE'"
     }]
   }]
 }
@@ -83,11 +100,10 @@ It can be represented as the following JSON object:
 To achieve the flexibility of _Questionnaire UI_ the **Rules** object has been added.
 It accepts the following parameters:
 
-1. action: whether _hide_ or _show_
-2. target: _Block ID_ or **self**
-3. condition: single expression with Relational or Equality operator
+1. Condition (controls when input is shown): expressions with `Relational`, `Equality`, `Binary logical` operators. (maybe, `logical NOT` as well)
+2. By default it is `true`
 
-In case if several rules are applied to block they work as logical AND.
+Input should support groupping, to make it's possible to control several inputs by the single rule.
 
 > There should be much more UI-oriented data. Like hint, isRequired, default value, etc. We can discuss it later.
 
@@ -97,12 +113,12 @@ Can be easily represented as:
 
 ```
 [{
-    type: "dateRange",
-    id: "YearsInArmy"
-    value: {
-        startDate: "dd-mm-yyyy",
-        endDate: "dd-mm-yyyy"
-    },
+  type: "dateRange",
+  id: "YearsInArmy"
+  value: {
+    startDate: "dd-mm-yyyy",
+    endDate: "dd-mm-yyyy"
+  }
 }, ...]
 ```
 
@@ -112,6 +128,8 @@ If the block was hidden due to rules, the value is set to _null_.
 
 The key idea of these two client-side applications is to build a _Questionnaire_ and to get its results.
 To accomplish this I would introduce the concept of **UI Data Component**. Which is consist from component shared between the Edtior and _Questionnaire UI_.
+
+Since all the data are basically JSON documents, we can easily implement versioning and auto-saving (to Mongo, and LocalStorage) for both _Template Editor_ and _Questionnaire User Interface_.
 
 ## UI Data Component
 
@@ -133,3 +151,4 @@ Provides the following functionality:
 
 1. Preparing _Questionnaire Results_ by filling in UI generated from _Questionnaire UI components_ based on selected _Questionnaire Config_
 2. Passing this _Questionnaire Results_ and _Questionnaire Config_ to **Processing Unit**
+3. Processing RULES set by _Questionnaire Config_ to apply hide/show actions to specific UI blocks
