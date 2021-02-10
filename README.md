@@ -145,8 +145,8 @@ Basically consist of two parts:
 
 Provides the following functionality:
 
-1. Fill in **Handlebars JS** _Document Template_
-2. Create _Questionnaire Config_. Mainly as the set of **Configiration Components** with **rules**
+1. Editor for **Handlebars JS** _Document Template_
+2. _Questionnaire Config_ constructor. Mainly as the set of **Configiration Components** with **rules**
 
 ## Questionnaire User Interface
 
@@ -154,7 +154,7 @@ Provides the following functionality:
 
 1. Preparing _Questionnaire Results_ by filling in UI generated from _Questionnaire UI components_ based on selected _Questionnaire Config_
 2. Passing this _Questionnaire Results_ and _Questionnaire Config_ to **Processing Unit**
-3. Processing RULES set by _Questionnaire Config_ to apply hide/show actions to specific UI blocks
+3. Processing **rules** set by _Questionnaire Config_ to apply hide/show actions to specific UI blocks
 
 _Questionnaire UI_ should keep all user input in LocalStorage, and propose to use saved data once page is loaded.
 Alternatively, if user is logged in, all data must be kept in MongoDB.
