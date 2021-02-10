@@ -37,8 +37,10 @@ From a technical point of view, we are going to need the following services:
 2. _Questionnaire User Interface_ - tool for users to fill in Questionnaire and provide with _Questionnaire Results_
 3. _Processing Unit_ - generates _Document_ based on _Questionnaire Results_ into _Document Template_
 4. _Exporting Unit_ - generates _Document File_ based on a _Document_
-5. _CRUD API_ - basically allows to read/write entities to the database.
-6. _Mongo DB_ - document-oriented database should perfectly suit the document-oriented platform.
+5. _CRUD API_ - basically allows to read/write **entities** to the database.
+6. _Auth Gateway_ - trades credentials to JWT token
+7. _Identity Provider_ - trades token to user profile. Provides with profile editing, password change and reset.
+8. _Mongo DB_ - document-oriented database should perfectly suit the document-oriented platform.
 
 ![High-level services](highlevel-architecture.svg)
 
@@ -54,7 +56,7 @@ That's why I suggest using flexible template language like **Handlebars JS**. Th
 
 #### Questionnaire Config
 
-It is probably going to be a key entity of the system. The model of this entity affects many services. The general idea of this model is keeping collection UI components with some additional config.
+It is probably going to be a key entity of the system. The model of this entity affects many services. The general idea of this model is keeping collection of Data Input Components with their config.
 
 It can be represented as the following JSON object:
 
@@ -127,7 +129,8 @@ If the block was hidden due to rules, the value is set to _null_.
 # Client-side applications
 
 The key idea of these two client-side applications is to build a _Questionnaire_ and to get its results.
-To accomplish this I would introduce the concept of **UI Data Component**. Which is consist from component shared between the Edtior and _Questionnaire UI_.
+To accomplish this I would introduce the concept of **UI Data Component**.
+Which is consist from two parts: _Configiration Component_ and _Questionnaire Data Input Component_.
 
 Since all the data are basically JSON documents, we can easily implement versioning and auto-saving (to Mongo, and LocalStorage) for both _Template Editor_ and _Questionnaire User Interface_.
 
@@ -143,7 +146,7 @@ Basically consist of two parts:
 Provides the following functionality:
 
 1. Fill in **Handlebars JS** _Document Template_
-2. Create _Questionnaire Config_. Mainly as the set of **Admin configuration components** with **rules** and filled in **attributes**
+2. Create _Questionnaire Config_. Mainly as the set of **Configiration Components** with **rules**
 
 ## Questionnaire User Interface
 
@@ -152,3 +155,6 @@ Provides the following functionality:
 1. Preparing _Questionnaire Results_ by filling in UI generated from _Questionnaire UI components_ based on selected _Questionnaire Config_
 2. Passing this _Questionnaire Results_ and _Questionnaire Config_ to **Processing Unit**
 3. Processing RULES set by _Questionnaire Config_ to apply hide/show actions to specific UI blocks
+
+_Questionnaire UI_ should keep all user input in LocalStorage, and propose to use saved data once page is loaded.
+Alternatively, if user is logged in, all data must be kept in MongoDB.
