@@ -16,12 +16,12 @@ For **Frontend**, I would go with React.
 
 ## High-level entities
 
-The general idea to achieve the ability to generate documents based on the preconfigured flexible template is to **all entities needed** for the final document:
+The general idea to achieve the ability to generate documents based on the _pre-configured flexible template_ is to prepare **all entities needed** for the final document:
 
 1. _Document Template_
 2. _Questionnaire Results_
 
-Having these two entities we can put _Questionnaire Results_ into _Document Template_ and generate the final _Document_. To make it possible to get _Questionnaire Results_ we need to introduce _Questionnaire Config_.
+Having these two entities we can put _Questionnaire Results_ into _Document Template_ and generate the final **Document**. To make it possible to get _Questionnaire Results_ we need to introduce _Questionnaire Config_.
 
 ## High-level services
 
